@@ -2,8 +2,50 @@
     ViewData["Title"] = "Прайс";
 }
 <h1>@ViewData["Title"]</h1>
+@model OrganicFood.ViewModels.PriceModelView
 
-<p>На днной странице вы можете ознакомиться с нашей продукцией и ее стоимостью.</p>
+<p>На данной странице вы можете ознакомиться с нашей продукцией и ее стоимостью.</p>
 
-<asp:image runat="server" id="Image1"
-           ImageUrl="~/Pictures/logo.png" />
+
+@*<asp:image runat="server" id="Image1"
+    ImageUrl="~/Pictures/logo.png" />*@
+<body style="background: url(/Pictures/logo.png) #f3e5ae">
+
+    <table style="border:dashed">
+        <tr>
+            <th>
+                <b style="color:green">Наименование</b>
+            </th>
+
+            <th>
+                <b style="color:green">Цена (руб.)</b>
+            </th>
+        </tr>
+
+        <tbody style="background: #f5a13a">
+
+            @foreach (var cat in @Model.Category)
+            {
+                <tr>
+                    <th style="color: orangered">@cat.Category</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var good in @Model.Goods)
+                {
+                    @if (@good.Category.Equals(@cat.Category))
+                    {
+                        <tr>
+                            <th>@good.Good</th>
+                            <th align="center">@good.Price</th>
+                        </tr>
+                    }
+                }
+
+
+            }
+        </tbody>
+
+    </table>
+
+</body>

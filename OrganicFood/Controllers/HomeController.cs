@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using OrganicFood.GetData;
+using OrganicFood.ViewModels;
 
 namespace OrganicFood.Controllers
 {
@@ -25,7 +27,15 @@ namespace OrganicFood.Controllers
 
         public IActionResult Price()
         {
-            return View();
+            GetGoods gg = new GetGoods(); // чтение списка из БД
+
+            PriceModelView priceModel = new PriceModelView()
+            {
+                Goods = gg.GetPriceList(),
+                Category = gg.GetCategoryList()
+            };
+
+            return View(priceModel);
         }
 
         public IActionResult Recept()
